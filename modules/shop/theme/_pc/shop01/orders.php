@@ -534,7 +534,11 @@ $tel2 = explode('-',$my['tel2']);
 			<div class="btnbox">
 				<a href="<?php echo $g['shop_reset']?>&amp;mod=cart"><img src="<?php echo $g['img_module_skin']?>/cart/btn_cart.gif" alt="장바구니로 가기" /></a>
 				<br />
-				<input type="image" src="<?php echo $g['img_module_skin']?>/cart/btn_pay.gif" alt="결제하기" /> 
+				<?php if($d['shop']['pay_order']==2):?>
+		  		   <input type="image" src="<?php echo $g['img_module_skin']?>/cart/btn_order2.gif" alt="주문하기" />			
+		       <?php else:?>
+                 <input type="image" src="<?php echo $g['img_module_skin']?>/cart/btn_pay.gif" alt="결제하기" />
+		       <?php endif?> 
 			
 			</div>
 		</div>
@@ -1085,7 +1089,11 @@ function ordercheck(f)
 	{
 		if (f.payType.value != 'bank' || (f.payType.value == 'bank' && (f.escr && f.escr.checked == true)))
 		{
-			<?php include_once $g['dir_module'].'pg/'.$d['shop']['pgcomp'].'/connect.php'?>
+			<?php if($d['shop']['pay_order']==2):?>
+		         return confirm('정말로 주문하시겠습니까?     ');	      
+			<?php else:?>
+			    <?php include_once $g['dir_module'].'pg/'.$d['shop']['pgcomp'].'/connect.php'?>
+			<?php endif?>
 			return false;
 		}
 	}

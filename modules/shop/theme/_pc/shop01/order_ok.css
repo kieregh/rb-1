@@ -1,0 +1,39 @@
+#orderpage {}
+#orderpage .order {padding:5px 0 0 0;margin:0 0 30px 0;}
+#orderpage .order .tt {font-size:16px;font-family:dotum;font-weight:bold;border-bottom:#dfdfdf solid 1px;padding:0 0 12px 0;}
+#orderpage .order .term {margin:20px 0 0 0;}
+#orderpage .order .term span {position:relative;top:-4px;padding:0 5px 0 5px;}
+#orderpage .order table {width:100%;border-collapse:collapse;margin:15px 0 0 0;}
+#orderpage .order tr {}
+#orderpage .order td {text-align:center;border:1px #efefef solid;}
+#orderpage .order .title {height:28px;}
+#orderpage .order .title td {background:#F8FAFC;color:#999999;}
+#orderpage .order .title .date {width:90px;}
+#orderpage .order .title .goods {width:200px;}
+#orderpage .order .title .price {width:80px;}
+#orderpage .order .title .flag {width:70px;}
+#orderpage .order .title .etc {width:90px;}
+#orderpage .order .title .data {width:90px;}
+#orderpage .order .loop {}
+#orderpage .order .loop td {background:#ffffff;}
+#orderpage .order .loop .date {color:#444444;font-family:arial;font-size:12px;}
+#orderpage .order .loop .goods {padding:4px 0 12px 8px;text-align:left;line-height:150%;color:#777777;font-family:dotum;}
+#orderpage .order .loop .goods .option {position:relative;top:5px;margin:2px 0 2px 0;font:11px dotum;color:#666;}
+#orderpage .order .loop .goods .addprice {color:#ff7700;}
+#orderpage .order .loop .goods img {position:relative;top:5px;}
+#orderpage .order .loop .price {color:#FF6101;}
+#orderpage .order .loop .price div {font-size:11px;font-family:dotum;color:#B8D175;margin:4px 0 0 0;}
+#orderpage .order .loop .flag a {color:#528DEE;}
+#orderpage .order .loop .etc {}
+#orderpage .order .loop .etc img {margin:2px 0 0 0;}
+#orderpage .order .loop .data {}
+#orderpage .order .loop .data img {margin:2px 0 0 0;}
+#orderpage .order .none {}
+#orderpage .order .none td {background:#ffffff;text-align:center;height:30px;}
+#orderpage .orderguide {padding:15px;background:#f9f9f9;}
+#orderpage .orderguide div {text-align:left;font-weight:bold;margin:0 0 9px 0;}
+#orderpage .orderguide div img {position:relative;top:3px;left:2px;}
+#orderpage .orderguide ul {margin:0;padding:0;text-align:left;}
+#orderpage .orderguide li {list-style-type:none;padding:4px 0 4px 0;font:12px dotum;}
+#orderpage .orderguide li img {position:relative;top:3px;}
+#orderpage .pagebox01 {text-align:center;padding:20px 0 20px 0;}

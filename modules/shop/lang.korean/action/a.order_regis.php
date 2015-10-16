@@ -247,11 +247,15 @@ while(false !== ($file = readdir($opendir)))
 }
 closedir($opendir);
 
+if($d['shop']['pay_order']==2) $_mod='order_ok&_orderid='.$orderid;
+else $_mod='myorder';
+
 if ($my['uid'])
 {
-	getLink($g['s'].'/?r='.$r.'&m='.$m.'&mod=myorder','parent.','','');
+	getLink($g['s'].'/?r='.$r.'&m='.$m.'&mod='.$_mod,'parent.','','');
 }
-else {
-	getLink($g['s'].'/?r='.$r.'&m='.$m.'&mod=myorder&_orderid='.$orderid,'parent.','비회원 주문조회를 위해서는 주문번호를 메모해 두세요.','');
+else {	
+	getLink($g['s'].'/?r='.$r.'&m='.$m.'&mod='.$_mod.'&_orderid='.$orderid,'parent.','비회원 주문조회를 위해서는 주문번호를 메모해 두세요.','');
 }
+
 ?>
