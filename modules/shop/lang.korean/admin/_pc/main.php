@@ -39,6 +39,7 @@ if ($taxtype2) $_WHERE .= ' and taxtype=2';
 if ($escr) $_WHERE .= ' and escr=1';
 if ($buyfix) $_WHERE .= ' and buyfix=1';
 if ($is_mobile) $_WHERE .= ' and is_mobile=1';
+if ($pg_error) $_WHERE .= " and tid=''";
 
 if ($where && $keyw)
 {
@@ -149,6 +150,7 @@ $sflag  = array('','주문접수','입금확인','배송준비','상품발송','
 		<input type="checkbox" name="escr" id="p7" value="point"<?php if($escr):?> checked="checked"<?php endif?> onclick="this.form.submit();" /><label for="p7">에스크로</label>
 		<input type="checkbox" name="buyfix" id="p8" value="point"<?php if($buyfix):?> checked="checked"<?php endif?> onclick="this.form.submit();" /><label for="p8">구매확정</label>
 		<input type="checkbox" name="is_mobile" id="p9" value="point"<?php if($is_mobile):?> checked="checked"<?php endif?> onclick="this.form.submit();" /><label for="p9">모바일</label>
+		<input type="checkbox" name="pg_error" id="p10" value="point"<?php if($pg_error):?> checked="checked"<?php endif?> onclick="this.form.submit();" /><label for="p10">PG 거래번호 없음</label>
 		</div>
 
 		</form>
@@ -190,6 +192,7 @@ $sflag  = array('','주문접수','입금확인','배송준비','상품발송','
 	<col width="70"> 
 	<col width="70"> 
 	<col width="80">
+	<col width="80">
 	<col>
 	</colgroup> 
 	<thead>
@@ -204,6 +207,7 @@ $sflag  = array('','주문접수','입금확인','배송준비','상품발송','
 	<th scope="col">결제방식<br />배송일자</th>
 	<th scope="col">운송장번호</th>
 	<th scope="col">주문관리</th>
+	<th scope="col">PG 거래번호</th>
 	<th scope="col" class="side2"></th>
 	</tr>
 	</thead>
@@ -267,6 +271,14 @@ $sflag  = array('','주문접수','입금확인','배송준비','상품발송','
 		<?php if(!$O['taxtype']):?><a href="#." onclick="OpenWindowX('<?php echo $g['s']?>/?r=<?php echo $r?>&m=<?php echo $module?>&mod=tax&xmod=receipt&user=admin&oid=<?php echo $O['orderid']?>');">간이영수증</a><?php endif?>
 		<?php endif?>	
 	</td>
+	<td>
+		<?php if($O['tid']):?>
+		   <span style="color:blue">있음</span>
+		<?php else:?>
+          <span style="color:red">없음</span>
+		<?php endif?> 
+		<br/><input type="text" name="tid_<?php echo $O['orderid']?>" value="<?php echo $O['tid']?>" class="input"  />
+	</td>
 	<td></td>
 	</tr> 
 	<?php endwhile?> 
@@ -302,6 +314,7 @@ $sflag  = array('','주문접수','입금확인','배송준비','상품발송','
 	<?php endforeach?>
 	</select>
 	<input type="button" value="송장등록" class="btnblue" onclick="actCheck('tack');" />
+	<input type="button" value="PG 거래번호 등록" class="btngray" onclick="actCheck('tid');" />
 	<input type="button" value="엑셀" class="btngray" onclick="layerShowHide('guide_tack','block','none');" />
 	&nbsp;&nbsp;&nbsp;&nbsp;
 

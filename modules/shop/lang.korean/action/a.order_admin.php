@@ -18,6 +18,11 @@ if ($_a == 'order_action')
 		{
 			getDbUpdate($table[$m.'order'],"tack_comp='".$tack_comp."',tack_number='".${'tack_'.$O['uid']}."'",'uid='.$O['uid']);
 		}
+		// PG 거래번호 등록 
+		else if($act=='tid')
+		{
+		   getDbUpdate($table[$m.'order'],"tid='".${'tid_'.$O['orderid']}."'",'uid='.$O['uid']);	
+		}	
 		//주문데이터 삭제
 		else if ($act == 'delete')
 		{
