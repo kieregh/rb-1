@@ -5,7 +5,7 @@ include_once $g['dir_module'].'var/var.php';
 $g['cart_file'] = $g['dir_module'].'tmp/cart/'.$_SESSION['cartid'].'.txt';
 
 $orderid	= $_SESSION['cartid'];
-$orderstep	= $tid ? 2 : 1;
+$orderstep	= $tid &&$ckind!=4?2 : 1;
 $mbruid		= $my['uid'];
 $o_tel1		= $o_tel11 && $o_tel12 && $o_tel13 ? $o_tel11.'-'.$o_tel12.'-'.$o_tel13 : '';
 $o_tel2		= $o_tel21 && $o_tel22 && $o_tel23 ? $o_tel21.'-'.$o_tel22.'-'.$o_tel23 : '';
@@ -41,6 +41,9 @@ if ($escr)
 {
 	$bank = $escrbank ? $escrbank : $bank;
 }
+
+// 후주문, 선결제 가 아니고 && 결제수단이 가상계좌인 경우 가상계좌 데이타를 bank 에 입력한다. 
+if($d['shop']['pay_order']!=2 && $ckind==4) $bank=$virt_bank;
 
 $QKEY = 'orderid,orderstep,price,shalin,mhalin,chalin,tack,tack_after,tack_comp,tack_number,givepoint,usepoint,mbruid,';
 $QKEY.= 'o_name,o_email,o_tel1,o_tel2,o_zip,o_addr1,o_addr2,';

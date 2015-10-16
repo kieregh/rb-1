@@ -560,6 +560,7 @@ $tel2 = explode('-',$my['tel2']);
 <input type="hidden" name="uidcoupon" value="0" />
 <input type="hidden" name="tid" value="" />
 <input type="hidden" name="escrbank" value="" />
+<input type="hidden" name="virt_bank" value="" />
 
 <input type="hidden" name="c_name" value="" />
 <input type="hidden" name="c_ceo" value="" />

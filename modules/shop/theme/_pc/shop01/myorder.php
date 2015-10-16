@@ -179,6 +179,7 @@ $payType=array('','무통장입금','카드','계좌이체','가상계좌','핸�
 <input type="hidden" name="m" value="<?php echo $m?>" />
 <input type="hidden" name="tid" value="" />
 <input type="hidden" name="orderid" value="" />
+<input type="hidden" name="bank" value="" />
 </form>
 
 <script type="text/javascript">
