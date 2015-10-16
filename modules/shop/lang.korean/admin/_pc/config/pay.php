@@ -14,6 +14,15 @@
 
 <table>
 	<tr>
++		<td class="td1">결제진행 순서설정</td>
++		<td class="td2">
++			<input type="radio" name="pay_order" value="1"<?php if($d['shop']['pay_order']==1 || !$d['shop']['pay_order']):?> checked="checked"<?php endif?> />주문등록 <span style="color:red;">전</span> 결제진행
++			<br />
++			<input type="radio" name="pay_order" value="2"<?php if($d['shop']['pay_order']==2):?> checked="checked"<?php endif?> />주문등록 <span style="color:red;">후</span> 결제진행 
++			<span class="guide">(kcp 등 주문누락이 발생할 경우 사용)</span>
++		</td>
++	</tr>
+	<tr>
 		<td class="td1">허용할 결제방식</td>
 		<td class="td2">
 			<input type="checkbox" checked="checked" disabled="disabled" />무통장입금 <br />
