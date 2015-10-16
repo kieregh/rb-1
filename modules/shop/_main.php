@@ -342,4 +342,52 @@ function getHalinTD($R)
 		echo '</tr>';
 	}
 }
+/*
+ 결제상태 출력 함수
+   - $O : 해당 order Data 배열 
+   - $do_pay : 결제기능을 적용할지 말지 여부
+     $do_pay 가 'yes' 이면 do_pay('<?php echo $O['uid']?>') 형태로 규정하고 해당 페이지에 do_pay() 함수 스크립트를 추가해줘야 한다.
+   - myorder.php, order_ok.php 페이지에서 사용되고 있다. 
+*/ 
+function getPayState($O,$do_pay)
+{
+	global $g;
+    
+    $bank_arr=explode(' ',$O['bank']);
+    $need_trans='<a href="#입금계좌='.$O['bank'].'" style="color:#ff6101;cursor:help;" title="입금계좌 : '.$O['bank'].'">입금요망</a>';
+   
+    if($O['ckind']==1){
+         if(!$O['d_bank']){
+             $html=$need_trans;
+         }else{
+         	  $html='입금완료';
+         }
+    }else{
+        if(!$O['tid']){
+            // PG 거래번호가 없는 경우
+          	 if($do_pay=='yes'){
+        	 	 $html='<span><a href="#." onclick="do_pay(\''.$O['uid'].'\');"  /><img src="'.$g['img_module_skin'].'/mypage/btn_pay.gif" alt="결제하기" /></a></span>';
+        	 }else{
+                $html='<span class="price">결제요망</span>';
+        	 }
+        }else{
+          // PG 거래번호가 있는 경우           
+           if($O['ckind']==4){
+              // 가상계좌인 경우 
+           	 if(!$O['d_bank']){
+           	 	  $html=$need_trans; 
+           	 }else{           	 	  
+           	 	  $html='입금완료';
+           	 } // 입금날짜? or not
+
+           }else{ 
+           	$html='결제완료';
+           } // 가상계좌 ? or not    
+
+        } // tid ? or not
+
+    } // 무통장입금 ?  or not 
+
+    return $html;
+}
 ?>

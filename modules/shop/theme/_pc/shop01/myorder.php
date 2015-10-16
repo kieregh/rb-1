@@ -22,6 +22,7 @@ if ($where && $keyword)
 $NUM = getDbRows($table[$m.'order'],$_WHERE);
 $RCD = getDbArray($table[$m.'order'],$_WHERE,'*',$sort,$orderby,$recnum,$p);
 $TPG = getTotalPage($NUM,$recnum);
+$payType=array('','무통장입금','카드','계좌이체','가상계좌','핸드폰');
 ?>
 
 
@@ -80,6 +81,8 @@ $TPG = getTotalPage($NUM,$recnum);
 				<td class="date">주문날짜</td>
 				<td class="goods">상품명</td>
 				<td class="price">실결제액/적립</td>
+				<td class="price">결제수단</td>
+  			   <td class="price">결제상태</td>
 				<td class="flag">상태/정보</td>
 				<td class="etc"><?php if($d['shop']['pointgive']==1):?>구매확정/<?php endif?>배송</td>
 				<td class="data">증빙자료</td>
@@ -110,6 +113,8 @@ $TPG = getTotalPage($NUM,$recnum);
 					<?php endwhile?>
 				</td>
 				<td class="price"><?php echo number_format(($O['price']+$O['tack'])-($O['shalin']+$O['mhalin']+$O['chalin']+$O['usepoint']))?>원<div>(<?php echo number_format($O['givepoint'])?>원)</div></td>
+				<td ><?php echo $payType[$O['ckind']]?></td>
+              <td><?php echo getPayState($O,'yes')?></td>
 				<td class="flag"><a href="#." onclick="OpenWindowX('<?php echo $g['s']?>/?r=<?php echo $r?>&m=<?php echo $m?>&mod=order&xmod=user&oid=<?php echo $O['orderid']?>');" title="주문번호 : <?php echo $O['orderid']?>"><?php echo $sflag[$O['orderstep']]?></a></td>
 				<td class="etc">
 					<?php if($d['shop']['pointgive']==1&&$O['orderstep']>1&&$O['orderstep']<6):?>
@@ -136,12 +141,12 @@ $TPG = getTotalPage($NUM,$recnum);
 			
 			<?php if(!$NUM):?>
 			<tr class="none">
-				<td colspan="6">주문상품이 없습니다.</td>
+				<td colspan="8">주문상품이 없습니다.</td>
 			</tr>
 			<?php endif?>
 
 			<tr>
-				<td colspan="6" class="orderguide">
+				<td colspan="8" class="orderguide">
 					<div><img src="<?php echo $g['img_core']?>/_public/ico_notice.gif" alt="" /> 주문/배송 안내</div>
 					<ul>
 						<li>ㆍ거래상태를 클릭하시면 자세한 주문정보를 확인하실 수 있으며 유효기한시 주문취소/교환요청/환불요청이 가능합니다.</li>
@@ -166,6 +171,15 @@ $TPG = getTotalPage($NUM,$recnum);
 
 </div>
 
+<!-- tid 값 업데이트 폼 -->
+<form name="orderTidform" method="post" action="<?php echo $g['s']?>/" target="_action_frame_<?php echo $m?>">
+<input type="hidden" name="r" value="<?php echo $r?>" />
+<input type="hidden" name="a" value="order_tid_update" />
+<input type="hidden" name="c" value="<?php echo $c?>" />
+<input type="hidden" name="m" value="<?php echo $m?>" />
+<input type="hidden" name="tid" value="" />
+<input type="hidden" name="orderid" value="" />
+</form>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -193,6 +207,39 @@ function dropDate(date1,date2)
 	f.day2.value = date2.substring(6,8);
 	
 	f.submit();
+}
+
+// 재결제 폼 세팅함수
+function do_pay(uid)
+{
+   var f=document.payform; 
+   var ajax=getHttprequest(rooturl+'/?r='+raccount+'&m=<?php echo $m?>&a=get_orderdata&uid='+uid,'');
+   var result=getAjaxFilterString(ajax,'RESULT'); 
+   var order = JSON.parse(result);
+   var payType={2:"card",3:"virt",4:"ziro",5:"phone"}; // 카드,계좌이체,가상계좌,핸드폰
+  
+   // 결제폼 필드값 세팅
+   var orderid=order['orderid']; 
+   var payType=payType[order['ckind']];  
+   var escr=order['escr'];
+   var amount= parseInt(order['price']) - parseInt(order['shalin'])- parseInt(order['mhalin']) - parseInt(order['chalin']) + parseInt(order['tack']);
+   var g_name=order['g_name'];
+   var g_qty=order['g_qty'];
+   var g_name_detail;
+   if(g_qty>1) g_name_detail='외 '+g_qty+'건';
+   else g_name_detail='';
+   var b_name=order['b_name'];
+   var o_tel1=order['o_tel1'];
+   var o_tel2=order['o_tel2'];
+   var o_email=order['o_email'];
+   var r_name=order['r_name'];
+   var r_tel1=order['r_tel1'];
+   var r_tel2=order['r_tel2'];
+   var r_zip=order['r_zip'];
+   var r_addr1=order['r_addr1'];
+   var r_addr2=order['r_addr2'];
+
+   <?php include_once $g['dir_module'].'pg/'.$d['shop']['pgcomp'].'/connect_payonly.php'?>
 }
 //]]>
 </script>

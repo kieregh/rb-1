@@ -1,5 +1,5 @@
 
-var UriOfsendToPg = "<?php echo $g['url_root']?>/modules/<?php echo $m?>/pg/<?php echo $d['shop']['pgcomp']?>/kcp_safe_pay<?php if($d['shop']['pgtest']):?>_test<?php endif?>.php?";
+var UriOfsendToPg = "<?php echo $g['url_root']?>/modules/<?php echo $m?>/pg/<?php echo $d['shop']['pgcomp']?>/kcp_cross_pay.php?";
 
 UriOfsendToPg += "site_name=<?php echo $d['shop']['g_shopname']?>&";	//site 이름
 UriOfsendToPg += "site_cd=<?php echo $d['shop']['pgid']?>&";			//상점아이디
